@@ -18,8 +18,8 @@ export default async function handler(req, res) {
       return res.status(response.status).json({ error: 'Failed to fetch the OGG audio file' });
     }
 
-    const oggBuffer = await response.buffer();
-
+    const oggArrayBuffer = await response.arrayBuffer();
+    const oggBuffer = Buffer.from(oggArrayBuffer);
     // Save OGG audio to a temporary file
     const tempFileName = 'tempInput.ogg'; // Assuming the input is in OGG format
     fs.writeFileSync(tempFileName, oggBuffer);
